@@ -1,0 +1,30 @@
+{
+  "name": "verkehr",
+  "preferGlobal": false,
+  "version": "0.0.1",
+  "author": "hennerthepenner <hendrik.sander@googlemail.com>",
+  "description": "tool to measure stuff in distributed node.js applications",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "main": "./lib/measure",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hennerthepenner/verkehr.git"
+  },
+  "keywords": [],
+  "dependencies" : {
+    "async"   :  "0.2.x",
+    "usage"   :  "0.3.x"
+  },
+  "analyze": false,
+  "devDependencies": {
+    "mocha"   :  "1.13.x",
+    "should"  :  "2.0.x"
+  },
+  "bundledDependencies": [],  
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10"
+  }
+}
