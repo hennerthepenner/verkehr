@@ -1,11 +1,11 @@
 libShould = require "should"
-Measures = require "../lib/measure"
+verkehr = require "../"
 
 
 describe "Sampling", () ->
   measures = null
 
-  before (cb) -> measures = new Measures(cb)
+  before (cb) -> measures = new verkehr.Measures(cb)
   after (cb) -> measures.stop(cb)
 
   it "should be extendable", (cb) ->
@@ -33,7 +33,7 @@ describe "Sampling", () ->
 describe "Problem during sampling", () ->
   measures = null
 
-  before (cb) -> measures = new Measures(cb)
+  before (cb) -> measures = new verkehr.Measures(cb)
   after (cb) -> measures.stop(cb)
 
   it "should bubble up as error event", (cb) ->

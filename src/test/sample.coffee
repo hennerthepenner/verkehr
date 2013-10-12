@@ -1,5 +1,5 @@
 libShould = require "should"
-Measures = require "../lib/measure"
+verkehr = require "../"
 
 
 describe "Sample", () ->
@@ -7,7 +7,7 @@ describe "Sample", () ->
   measures = null
 
   before (cb) ->
-    measures = new Measures()
+    measures = new verkehr.Measures()
     measures.once "sampled", (_sample) ->
       sample = _sample
       cb()

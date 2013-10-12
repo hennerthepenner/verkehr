@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha --reporter spec"
   },
-  "main": "./lib/measure",
+  "main": "./lib/index",
   "repository": {
     "type": "git",
     "url": "https://github.com/hennerthepenner/verkehr.git"
