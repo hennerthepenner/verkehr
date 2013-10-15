@@ -33,7 +33,7 @@ module.exports = exports = class Measures extends libEvents.EventEmitter
 
   # Start sampling. Sampling will be repeated every 5000 ms (default) or 
   # whatever is defined there.
-  start: (@samplingRate = 5000) ->
+  start: (@samplingRate = 5000, @hostname = "127.0.0.1", @port = 58241) ->
     libAsync.doWhilst @takeSample.bind(@), ( () => @repeat).bind(@), (err) =>
       return @emit("error", err) if err
       @emit("finished")
@@ -71,11 +71,9 @@ module.exports = exports = class Measures extends libEvents.EventEmitter
       data = JSON.stringify(@sample)
 
       # Build the parameters to communicate with the verkehrsmonitor
-      hostname = "127.0.0.1"
-      port = 10000
       params =
-        hostname: hostname
-        port: port
+        hostname: @hostname
+        port: @port
         method: "POST"
         path: "/sample"
         headers: 
@@ -86,7 +84,7 @@ module.exports = exports = class Measures extends libEvents.EventEmitter
       # just print it the stdout
       req = libHttp.request params
       req.on "error", (err) => 
-        msg = "Could not connect to verkehrsmonitor using #{hostname}:#{port}"
+        msg = "Could not connect to verkehrsmonitor using #{@hostname}:#{@port}"
         @emit("warning", {msg: msg, sample: @sample})
       req.end(data)
 

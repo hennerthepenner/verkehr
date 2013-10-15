@@ -37,6 +37,6 @@ checkInputAndStart = () ->
   # Finally start the server
   s = new verkehr.Server()
   s.start(port, hostname, backlog)
-
+  s.on "info", (info) -> console.log info
 
 checkInputAndStart()

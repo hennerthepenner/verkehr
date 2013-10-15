@@ -21,15 +21,13 @@
     });
     return it("should receive samples", function(cb) {
       server.once("started", function() {
-        var data, hostname, params, port, req;
-        hostname = "127.0.0.1";
-        port = 10000;
+        var data, params, req;
         data = JSON.stringify({
           hello: "world"
         });
         params = {
-          hostname: hostname,
-          port: port,
+          hostname: server.hostname,
+          port: server.port,
           method: "POST",
           path: "/sample",
           headers: {

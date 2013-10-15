@@ -14,18 +14,22 @@ module.exports = exports = class Server extends libEvents.EventEmitter
     @emit("initialized")
     @emit("stopped")
     @app.post "/sample", @handleSample.bind(@)
+    @port = undefined
+    @hostname = undefined
 
     cb() if cb and typeof cb is "function"
 
   # Setup http server and start listening. Available options are passed to the
   # node.js http server
-  start: (port = 10000, hostname = undefined, backlog = undefined) ->
+  start: (port = 58241, hostname = undefined, backlog = undefined) ->
     if @state is STATE_STOPPED
       @httpServer = libHttp.createServer(@app)
       @state = STATE_STARTING
       @emit("starting")
 
       @httpServer.listen port, hostname, backlog, () =>
+        @port = port
+        @hostname = @httpServer.address().address
         @state = STATE_STARTED
         @emit("started")
         @emit("info", "Monitoring server started on port #{port}.")
@@ -33,6 +37,8 @@ module.exports = exports = class Server extends libEvents.EventEmitter
   stop: (cb) ->
     if @state is STATE_STARTED
       @httpServer.close()
+      @port = undefined
+      @hostname = undefined
       @emit("info", "Monitoring server stopped.")
       @state = STATE_STOPPED
       @emit("stopped")
