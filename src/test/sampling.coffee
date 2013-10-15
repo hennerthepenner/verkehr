@@ -29,6 +29,14 @@ describe "Sampling", () ->
     ).should.throw("samplingFunc is not a function")
     cb()
 
+  it "should be able to overwrite default measures", (cb) ->
+    fakeFunc = (cb) -> cb(null, 42)
+    measures.addMeasure("uuid", fakeFunc)
+    measures.once "sampled", (sample) ->
+      sample.uuid.should.eql 42
+      cb()
+    measures.start()
+
 
 describe "Problem during sampling", () ->
   measures = null

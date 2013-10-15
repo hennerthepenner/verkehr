@@ -32,3 +32,10 @@ describe "Sample", () ->
     mem.should.have.property "heapTotal"
     mem.should.have.property "heapUsed"
     cb()
+
+  # We don't enforce a type here. Though the default value is created by
+  # node-uuid it's a UUID (v4). But we expect, that other developers might
+  # want to overwrite this value
+  it "should have a default property 'uuid'", (cb) ->
+    sample.should.have.property "uuid"
+    cb()

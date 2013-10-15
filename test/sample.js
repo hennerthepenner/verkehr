@@ -31,13 +31,17 @@
       sample.cpu.should.be.an.Number;
       return cb();
     });
-    return it("should have a default property 'memory' (Hash)", function(cb) {
+    it("should have a default property 'memory' (Hash)", function(cb) {
       var mem;
       sample.should.have.property("memory");
       mem = sample.memory;
       mem.should.have.property("rss");
       mem.should.have.property("heapTotal");
       mem.should.have.property("heapUsed");
+      return cb();
+    });
+    return it("should have a default property 'uuid'", function(cb) {
+      sample.should.have.property("uuid");
       return cb();
     });
   });

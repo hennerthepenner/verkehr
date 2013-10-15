@@ -2,6 +2,7 @@ libAsync = require "async"
 libUsage = require "usage"
 libEvents = require "events"
 libHttp = require "http"
+libUuid = require "node-uuid"
 
 
 module.exports = exports = class Measures extends libEvents.EventEmitter
@@ -21,6 +22,10 @@ module.exports = exports = class Measures extends libEvents.EventEmitter
     # Keep track of timeout, to enable real stop function
     @timeoutId = null
 
+    # Keep a unique id for these measures
+    @uuid = libUuid.v4()
+
+    @addMeasure "uuid", (cb) => cb(null, @uuid)
     @addMeasure "when", (cb) ->  cb(null, new Date())
     @addMeasure "cpu", (cb) -> 
       libUsage.lookup process.pid, keepHistory: false, (err, result) ->

@@ -39,11 +39,23 @@
       }).should["throw"]("name is not a string");
       return cb();
     });
-    return it("should accept only functions as samplingFunction", function(cb) {
+    it("should accept only functions as samplingFunction", function(cb) {
       (function() {
         return measures.addMeasure("test", 23);
       }).should["throw"]("samplingFunc is not a function");
       return cb();
+    });
+    return it("should be able to overwrite default measures", function(cb) {
+      var fakeFunc;
+      fakeFunc = function(cb) {
+        return cb(null, 42);
+      };
+      measures.addMeasure("uuid", fakeFunc);
+      measures.once("sampled", function(sample) {
+        sample.uuid.should.eql(42);
+        return cb();
+      });
+      return measures.start();
     });
   });
 

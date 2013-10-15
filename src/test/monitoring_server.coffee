@@ -15,12 +15,10 @@ describe "Monitoring Server", () ->
 
   it "should receive samples", (cb) ->
     server.once "started", () ->
-      hostname = "127.0.0.1"
-      port = 10000
       data = JSON.stringify({hello: "world"})
       params =
-        hostname: hostname
-        port: port
+        hostname: server.hostname
+        port: server.port
         method: "POST"
         path: "/sample"
         headers: 
