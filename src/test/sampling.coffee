@@ -45,3 +45,18 @@ describe "Problem during sampling", () ->
       err.should.eql problem
       cb()
     measures.start()
+
+
+describe "Connection problem", () ->
+  measures = null
+
+  before (cb) -> measures = new verkehr.Measures(cb)
+  after (cb) -> measures.stop(cb)
+
+  it "should emit a warning including the sample", (cb) ->
+    measures.on "warning", (warn) ->
+      warn.should.have.property "sample"
+      warn.should.have.property "msg"
+      warn.msg.should.startWith "Could not connect to verkehrsmonitor"
+      cb()
+    measures.start()

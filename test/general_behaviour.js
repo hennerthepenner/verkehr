@@ -4,11 +4,11 @@
 
   verkehr = require("../");
 
-  describe("General behaviour", function() {
+  describe("General behaviour of measuring", function() {
     return it("should start and stop", function(cb) {
       var measures;
       measures = new verkehr.Measures();
-      measures.once("finished", function(samples) {
+      measures.once("finished", function() {
         return cb();
       });
       measures.start(0);

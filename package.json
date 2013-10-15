@@ -15,7 +15,8 @@
   "keywords": [],
   "dependencies" : {
     "async"   :  "0.2.x",
-    "usage"   :  "0.3.x"
+    "usage"   :  "0.3.x",
+    "express" :  "3.4.x"
   },
   "analyze": false,
   "devDependencies": {
@@ -26,5 +27,9 @@
   "license": "MIT",
   "engines": {
     "node": ">=0.10"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "verkehrsmonitor" : "lib/verkehrsmonitor.js"
   }
 }

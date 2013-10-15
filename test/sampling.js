@@ -71,4 +71,24 @@
     });
   });
 
+  describe("Connection problem", function() {
+    var measures;
+    measures = null;
+    before(function(cb) {
+      return measures = new verkehr.Measures(cb);
+    });
+    after(function(cb) {
+      return measures.stop(cb);
+    });
+    return it("should emit a warning including the sample", function(cb) {
+      measures.on("warning", function(warn) {
+        warn.should.have.property("sample");
+        warn.should.have.property("msg");
+        warn.msg.should.startWith("Could not connect to verkehrsmonitor");
+        return cb();
+      });
+      return measures.start();
+    });
+  });
+
 }).call(this);
