@@ -1,6 +1,7 @@
 libExpress = require "express"
 libHttp = require "http"
 libEvents = require "events"
+libPath = require "path"
 
 
 module.exports = exports = class Server extends libEvents.EventEmitter
@@ -8,12 +9,15 @@ module.exports = exports = class Server extends libEvents.EventEmitter
 
   # Setup express.js app
   constructor: (cb) ->
+    @recentSamples = {}
     @app = libExpress()
     @app.use(libExpress.bodyParser())
     @state = STATE_STOPPED
     @emit("initialized")
     @emit("stopped")
+    @app.get "/data", @handleData.bind(@)
     @app.post "/sample", @handleSample.bind(@)
+    @app.use(libExpress.static(libPath.join(__dirname, "..", "client")))
     @port = undefined
     @hostname = undefined
 
@@ -45,8 +49,12 @@ module.exports = exports = class Server extends libEvents.EventEmitter
     cb() if cb and typeof cb is "function"
   
 
+  handleData: (req, res) ->
+    res.send(200, JSON.stringify(@recentSamples))
+
   handleSample: (req, res) ->
+    store = @recentSamples[req.body.uuid] = {}
     for name, value of req.body
-      console.log "#{name}: #{value}"
+      store[name] = value if name isnt "uuid"
       @emit("sample", req.body)
       res.send(201)

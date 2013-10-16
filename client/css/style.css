@@ -1,0 +1,17 @@
+div.node {
+    float: left;
+    border: 1px solid gray;
+    padding: 1em;
+}
+
+#no-connection {
+    display: none;
+}
+
+div.warning {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    margin: 2em;
+    padding: 2em;
+}

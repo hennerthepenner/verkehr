@@ -1,2 +1,9 @@
-lib/test
+# Don't include the node modules
 node_modules
+
+# The coffeescript source code is all in directory "src". If we compile them,
+# most of them should go to "lib". But we'd like to have some of them in extra
+# directories like "test" and "client". So we don't include those javascript
+# files:
+lib/test
+lib/client
